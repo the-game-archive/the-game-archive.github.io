@@ -12,3 +12,13 @@ body {
   text-align: center;
   min-height: 100vh;
 }
+.center-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+#embededGame {
+    width: 80%;
+    height: 80%;
+}
