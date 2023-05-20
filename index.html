@@ -17,16 +17,16 @@
       padding: 10px;
     }
     
-    #input-line {
+    .input-line {
       color: #FFF;
       overflow: hidden;
     }
     
-    #input-line::before {
+    .input-line::before {
       content: "> ";
     }
     
-    #input-line input {
+    .input-line input {
       background-color: transparent;
       border: none;
       outline: none;
@@ -39,15 +39,14 @@
   <div id="terminal">
     <pre>Welcome to the Game Archive!
 Type 'gameList' for a list of available games.</pre>
-    <div id="input-line">
+    <div class="input-line">
       > <input type="text" id="command-input" autofocus>
     </div>
   </div>
   
   <script>
     const terminal = document.getElementById('terminal');
-    const inputLine = document.getElementById('input-line');
-    const commandInput = document.getElementById('command-input');
+    let commandInput = document.getElementById('command-input');
     
     commandInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
@@ -57,6 +56,8 @@ Type 'gameList' for a list of available games.</pre>
     
     function processCommand() {
       const command = commandInput.value.trim().toLowerCase();
+      const inputLine = document.createElement('div');
+      inputLine.className = 'input-line';
       
       if (command === 'gamelist') {
         terminal.innerHTML += '<pre>Available games: \n placeholder \n placeholder</pre>';
@@ -79,6 +80,16 @@ Type 'gameList' for a list of available games.</pre>
       }
       
       commandInput.value = '';
+      terminal.appendChild(inputLine);
+      inputLine.innerHTML = '> <input type="text" id="command-input" autofocus>';
+      commandInput.removeEventListener('keydown', processCommand);
+      commandInput = inputLine.querySelector('input');
+      commandInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          processCommand();
+        }
+      });
+      commandInput.focus();
       terminal.scrollTop = terminal.scrollHeight;
     }
     
