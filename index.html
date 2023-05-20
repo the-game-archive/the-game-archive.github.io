@@ -1,28 +1,91 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Archive</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer data-domain="the-game-archive.github.io" src="https://plausible.io/js/script.js"></script>
+  <title>Game Archive</title>
+  <style>
+    body {
+      font-family: "Courier New", monospace;
+      background-color: #000;
+      color: #0F0;
+      margin: 0;
+      padding: 0;
+    }
+    
+    #terminal {
+      height: 90vh;
+      overflow: auto;
+      padding: 10px;
+    }
+    
+    #input-line {
+      color: #FFF;
+      overflow: hidden;
+    }
+    
+    #input-line::before {
+      content: "> ";
+    }
+    
+    #input-line input {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      width: 90%;
+      color: #0F0;
+    }
+  </style>
 </head>
 <body>
-    <h1>
-        The Game Archive
-    </h1>
-    <a href="https://the-game-archive.github.io/slope.html" target="_blank">
-        Slope
-    </a>
-    <p>
-    </p>
-    <a href="https://the-game-archive.github.io/meteors.html" target="_blank">
-        Meteors
-    </a>
-    <p>
-        Placeholder
-    <p>
-    <a href="https://the-game-archive.github.io/version_info.html" target="_blank">
-        Info (NOT a game)
-    </a>
+  <div id="terminal">
+    <pre>Welcome to the Game Archive!
+Type 'gameList' for a list of available games.</pre>
+    <div id="input-line">
+      > <input type="text" id="command-input" autofocus>
+    </div>
+  </div>
+  
+  <script>
+    const terminal = document.getElementById('terminal');
+    const inputLine = document.getElementById('input-line');
+    const commandInput = document.getElementById('command-input');
+    
+    commandInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        processCommand();
+      }
+    });
+    
+    function processCommand() {
+      const command = commandInput.value.trim().toLowerCase();
+      
+      if (command === 'gamelist') {
+        terminal.innerHTML += '<pre>Available games: \n placeholder \n placeholder</pre>';
+      } else if (command === 'slope') {
+        terminal.innerHTML += '<pre>Slope has been selected</pre>';
+
+        // Countdown from 3 to 1
+        let count = 3;
+        const countdownInterval = setInterval(() => {
+          if (count === 0) {
+            clearInterval(countdownInterval);
+            openNewTab('slope.html'); // Function to open slope.html in a new tab
+          } else {
+            terminal.innerHTML += '<pre>Redirecting in ' + count + '...</pre>';
+            count--;
+          }
+        }, 1000);
+      } else {
+        terminal.innerHTML += '<pre>Command not recognized. Type "gameList" for available games.</pre>';
+      }
+      
+      commandInput.value = '';
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+    
+    function openNewTab(url) {
+      const newTab = window.open(url, '_blank');
+      newTab.focus();
+    }
+  </script>
 </body>
 </html>
