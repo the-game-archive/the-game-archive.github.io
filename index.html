@@ -60,16 +60,28 @@ Type 'gameList' for a list of available games.</pre>
       inputLine.className = 'input-line';
       
       if (command === 'gamelist') {
-        terminal.innerHTML += '<pre>Available games: \n placeholder \n placeholder</pre>';
+        terminal.innerHTML += '<pre>Available games: \n Slope \n TurboMotoRace</pre>';
       } else if (command === 'slope') {
         terminal.innerHTML += '<pre>Slope has been selected</pre>';
-
         // Countdown from 3 to 1
         let count = 3;
         const countdownInterval = setInterval(() => {
           if (count === 0) {
             clearInterval(countdownInterval);
             openNewTab('slope.html'); // Function to open slope.html in a new tab
+          } else {
+            terminal.innerHTML += '<pre>Redirecting in ' + count + '...</pre>';
+            count--;
+          }
+        }, 1000);
+      } else if (command === 'turbomotorace') {
+        terminal.innerHTML += '<pre>TurboMotoRace has been selected</pre>';
+        // Countdown from 3 to 1
+        let count = 3;
+        const countdownInterval = setInterval(() => {
+          if (count === 0) {
+            clearInterval(countdownInterval);
+            openNewTab('turbomotorace.html'); // Function to open slope.html in a new tab
           } else {
             terminal.innerHTML += '<pre>Redirecting in ' + count + '...</pre>';
             count--;
